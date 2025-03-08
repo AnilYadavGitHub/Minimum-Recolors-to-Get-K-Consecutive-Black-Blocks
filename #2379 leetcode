@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int minimumRecolors(string blocks, int k) {
+        vector<string> ans;
+
+        for (int i = 0; i <= blocks.size() - k; i++) {
+            string str = "";
+
+            for (int j = i; j < i + k; j++) {
+                str += blocks[j];
+            }
+            ans.push_back(str);
+        }
+
+        int maxi = INT_MIN;
+
+        for (auto i : ans) {
+            int c = 0;
+            for (auto j : i) {
+                if (j == 'B') c++;
+            }
+            maxi = max(maxi, c);
+        }
+
+        return (maxi >= k) ? 0 : k - maxi;
+    }
+};
+
+int main() {
+    Solution sol;
+    string blocks = "WBBWWBBWBW"; // Example input
+    int k = 3; // Example k value
+    cout << "Minimum recolors required: " << sol.minimumRecolors(blocks, k) << endl;
+    return 0;
+}
